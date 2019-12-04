@@ -1,0 +1,80 @@
+<!DOCTYPE html> 
+<html>
+  <head>
+    <title>Bookers2</title>
+      <%= csrf_meta_tags %>
+      <%= csp_meta_tag %>
+      <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+      <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+        <div class="container">
+          <div class="row">
+            <div class="bg-dark text-white">
+              <span class="text_color navbar-left big">Bookers</span>
+              <!-- <header class="navbar navbar-fixed-top navbar-inverse"> -->
+              <ul class="nav navbar-nav navbar-right" data-hover="dropdown" data-animations="zoomIn fadeIn fadeInUp fadeIn">
+              <!-- サインインしている場合の表示 -->
+                <% if user_signed_in? %>
+                  <!-- Homeを表示 -->
+                  <li class="">
+                    <%= link_to ' Home',user_path(current_user), class:"glyphicon glyphicon-home home" %>
+                  </li>
+                  <!-- Usersを表示 -->
+                  <li class="">
+                    <%= link_to ' Users', users_path, class:"glyphicon glyphicon-user users" %>
+                  </li>
+                  <!-- Booksを表示 -->
+                  <li class="">
+                    <%= link_to ' Books', books_path, class:"glyphicon glyphicon-book books" %>
+                  </li>
+                  <!-- logoutを表示 -->
+                  <li class="">
+                    <%= link_to " logout", destroy_user_session_path, method: :delete, class:"glyphicon glyphicon-log-out logout" %>
+                  </li>
+                  <!-- サインインしていない場合の表示 -->
+                <% else %>
+                  <!-- Homeを表示 -->
+                  <li class="">
+                    <%= link_to " Home", root_path, class:"glyphicon glyphicon-home home" %>
+                  </li>
+                  <!-- Aboutを表示 -->
+                  <li class="">
+                    <%= link_to " About", home_about_path, class:"glyphicon glyphicon-link about" %>
+                  </li>
+                  <!-- sign upを表示 -->
+                  <li class="">
+                    <%= link_to " sign up", new_user_registration_path, class:"glyphicon glyphicon-edit sign_up" %>
+                  </li>
+                  <!-- loginを表示 -->
+                  <li class="">
+                    <%= link_to " login", new_user_session_path, class:"glyphicon glyphicon-log-in sign_in" %>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <!-- 2019.12.1 不要の可能性 -->
+    <!-- </header> -->
+
+    <!-- 2019.11.29 -->
+    <% flash.each do |key,value| %>
+      <%= content_tag(:div, value, class: "#{key}")%>
+    <% end %>
+
+    <div class ="row">
+      <%= yield %>
+    </div>
+
+    <div class = "row">
+      <div class="col-xs-3 col-xs-offset-8">
+      <!-- <div class = "pull-right"> -->
+        <p class="text-right">CopyRight Infratop.inc</p>
+      </div>
+    </div>
+  </body>
+</html>
